@@ -108,7 +108,7 @@ function M:entry(job)
 	local file_path = Url(pathJoin(get_cwd(), file_name))
 	local cha, _ = fs.cha(file_path)
 	if cha then
-		local pos = get_state(STATE.INPUT_POSITION)
+		local pos = get_state(STATE.OVERWRITE_CONFIRM_POSITION)
 		pos = pos or { "center", w = 70, h = 10 }
 
 		local overwrite_confirmed = ya.confirm({

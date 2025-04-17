@@ -18,7 +18,7 @@
 
 ## Features
 
-- Paste clipboard content to file. You can input file name, absolute path or relative path.
+- Paste clipboard content to file. You can input file name or relative path.
 - Ask to overwrite file if it exists
 
 ## Requirements
@@ -46,7 +46,7 @@ Add this to your `keymap.toml`:
   ]
 ```
 
-### Configuration
+### Configuration (Optional)
 
 This setup is the default configuration. You don't need to call `setup()` if you don't want to change the default configuration.
 Any options not specified will use the default value.

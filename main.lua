@@ -55,6 +55,10 @@ local get_cwd = ya.sync(function()
 	return tostring(cx.active.current.cwd)
 end)
 
+local get_current_tab_id = ya.sync(function()
+	return tostring(cx.active.id.value)
+end)
+
 local function input_file_name()
 	local pos = get_state(STATE.INPUT_POSITION)
 	pos = pos or { "center", w = 70 }
@@ -63,7 +67,6 @@ local function input_file_name()
 		title = "Enter file name:",
 		position = pos,
 	})
-	ya.err(input_event)
 	if input_event == 1 then
 		if not input_value or input_value == "" then
 			warn("File name can't be empty!")
@@ -95,6 +98,7 @@ function M:setup(opts)
 end
 
 function M:entry(job)
+	local no_hover = job.args.no_hover == nil and false or job.args.no_hover
 	-- Get contents from the clipboard
 	local clipboard_content = ya.clipboard()
 	if not clipboard_content then
@@ -136,12 +140,18 @@ function M:entry(job)
 				fs.create("dir_all", file_path.parent)
 			end
 			fs.write(file_path, clipboard_content)
+			if not no_hover then
+				ya.manager_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
+			end
 		end
 	else
 		if file_path.parent then
 			fs.create("dir_all", file_path.parent)
 		end
 		fs.write(file_path, clipboard_content)
+		if not no_hover then
+			ya.manager_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
+		end
 	end
 end
 return M

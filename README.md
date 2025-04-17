@@ -26,7 +26,9 @@ Add this to your `keymap.toml`:
 ```toml
 [manager]
   prepend_keymap = [
-    { on = [ "p", "c" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file" },
+    { on = [ "p", "c" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file and hover after created" },
+    #{ on = [ "p", "c" ], run = "plugin save-clipboard-to-file -- --no-hover", desc = "Paste clipboard content to file without hover after created" },
+
   ]
 ```
 

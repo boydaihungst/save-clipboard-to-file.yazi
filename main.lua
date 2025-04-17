@@ -2,11 +2,33 @@
 local M = {}
 local PackageName = "save-clipboard-to-file"
 
-local function fail(s, ...)
-	ya.notify({ title = PackageName, content = string.format(s, ...), timeout = 3, level = "error" })
-end
+---@enum STATE
+local STATE = {
+	INPUT_POSITION = "input_position",
+	OVERWRITE_CONFIRM_POSITION = "overwrite_confirm_position",
+	HIDE_NOTIFY = "hide_notify",
+}
 
+local set_state = ya.sync(function(state, key, value)
+	if state then
+		state[key] = value
+	else
+		state = {}
+		state[key] = value
+	end
+end)
+
+local get_state = ya.sync(function(state, key)
+	if state then
+		return state[key]
+	else
+		return nil
+	end
+end)
 local function warn(s, ...)
+	if get_state(STATE.HIDE_NOTIFY) then
+		return
+	end
 	ya.notify({ title = PackageName, content = string.format(s, ...), timeout = 3, level = "warn" })
 end
 
@@ -34,12 +56,16 @@ local get_cwd = ya.sync(function()
 end)
 
 local function input_file_name()
+	local pos = get_state(STATE.INPUT_POSITION)
+	pos = pos or { "center", w = 70 }
+
 	local input_value, input_event = ya.input({
 		title = "Enter file name:",
-		position = { "center", w = 100 },
+		position = pos,
 	})
+	ya.err(input_event)
 	if input_event == 1 then
-		if not input_value then
+		if not input_value or input_value == "" then
 			warn("File name can't be empty!")
 			return
 		elseif input_value:match("/$") then
@@ -47,6 +73,24 @@ local function input_file_name()
 			return
 		end
 		return input_value
+	end
+end
+
+function M:setup(opts)
+	if opts and opts.hide_notify and type(opts.hide_notify) == "boolean" then
+		set_state(STATE.HIDE_NOTIFY, opts.hide_notify)
+	else
+		set_state(STATE.HIDE_NOTIFY, false)
+	end
+	if opts and opts.input_position and type(opts.input_position) == "table" then
+		set_state(STATE.INPUT_POSITION, opts.input_position)
+	else
+		set_state(STATE.INPUT_POSITION, { "center", w = 70 })
+	end
+	if opts and opts.overwrite_confirm_position and type(opts.overwrite_confirm_position) == "table" then
+		set_state(STATE.OVERWRITE_CONFIRM_POSITION, opts.overwrite_confirm_position)
+	else
+		set_state(STATE.OVERWRITE_CONFIRM_POSITION, { "center", w = 70, h = 10 })
 	end
 end
 
@@ -58,12 +102,15 @@ function M:entry(job)
 		return
 	end
 	local file_name = input_file_name()
-	if not file_name then
+	if not file_name or file_name == "" then
 		return
 	end
 	local file_path = Url(pathJoin(get_cwd(), file_name))
 	local cha, _ = fs.cha(file_path)
 	if cha then
+		local pos = get_state(STATE.INPUT_POSITION)
+		pos = pos or { "center", w = 70, h = 10 }
+
 		local overwrite_confirmed = ya.confirm({
 			title = ui.Line("Save clipboard to file"):style(th and th.confirm and th.confirm.title),
 			content = ui.Text({
@@ -77,7 +124,7 @@ function M:entry(job)
 			})
 				:align(ui.Text.LEFT)
 				:wrap(ui.Text.WRAP),
-			pos = { "center", w = 100, h = 10 },
+			pos = pos,
 		})
 		if overwrite_confirmed then
 			local deleted_collided_item, _ = fs.remove("file", file_path)

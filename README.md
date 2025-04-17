@@ -21,11 +21,29 @@ ya pack -a boydaihungst/save-clipboard-to-file
 
 ### Key binding
 
-- Add this to your `keymap.toml`:
+Add this to your `keymap.toml`:
 
-  ```toml
-  [manager]
-    prepend_keymap = [
-      { on = [ "p", "c" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file" },
-    ]
-  ```
+```toml
+[manager]
+  prepend_keymap = [
+    { on = [ "p", "c" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file" },
+  ]
+```
+
+### Configuration
+
+This setup is the default configuration. You don't need to call `setup()` if you don't want to change the default configuration.
+Any options not specified will use the default value.
+
+Add this to your `init.lua`:
+
+```lua
+require("save-clipboard-to-file"):setup({
+  -- Position of input file name or path dialog
+	input_position = { "center", w = 70 },
+	-- Position of overwrite confirm dialog
+	overwrite_confirm_position = { "center", w = 70, h = 10 },
+	-- Hide notify
+	hide_notify = false,
+})
+```

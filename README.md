@@ -2,6 +2,20 @@
 
 [Yazi](https://github.com/sxyazi/yazi) plugin to paste clipboard content to file.
 
+## Preview
+
+- Relative file name:
+
+  ![image](https://github.com/user-attachments/assets/ea49a15f-63e6-47d0-af3d-d534d892e57e)
+
+- Overwrite confirm dialog:
+
+  ![image](https://github.com/user-attachments/assets/a953b8f6-a7ff-4f2a-b549-3387e120ee86)
+
+- Relavetive path:
+
+  ![image](https://github.com/user-attachments/assets/56e981eb-cf33-4485-9521-19dc7853a264)
+
 ## Features
 
 - Paste clipboard content to file. You can input file name, absolute path or relative path.

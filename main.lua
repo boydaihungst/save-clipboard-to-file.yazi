@@ -1,4 +1,4 @@
---- @since 25.4.4
+--- @since 25.4.8
 local M = {}
 local PackageName = "save-clipboard-to-file"
 
@@ -116,14 +116,14 @@ function M:entry(job)
 		pos = pos or { "center", w = 70, h = 10 }
 
 		local overwrite_confirmed = ya.confirm({
-			title = ui.Line("Save clipboard to file"):style(th and th.confirm and th.confirm.title),
+			title = ui.Line("Save clipboard to file"):style(th.confirm.title),
 			content = ui.Text({
 				ui.Line(""),
 				ui.Line("The following file is existed, overwrite?"):style(ui.Style():fg("yellow")),
 				ui.Line(""),
 				ui.Line({
 					ui.Span(" "),
-					ui.Span(tostring(file_path)):style(th and th.confirm and th.confirm.list or ui.Style():fg("blue")),
+					ui.Span(tostring(file_path)):style(th.confirm.list or ui.Style():fg("blue")),
 				}):align(ui.Line.LEFT),
 			})
 				:align(ui.Text.LEFT)
@@ -141,7 +141,7 @@ function M:entry(job)
 			end
 			fs.write(file_path, clipboard_content)
 			if not no_hover then
-				ya.manager_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
+				ya.mgr_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
 			end
 		end
 	else
@@ -150,7 +150,7 @@ function M:entry(job)
 		end
 		fs.write(file_path, clipboard_content)
 		if not no_hover then
-			ya.manager_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
+			ya.mgr_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
 		end
 	end
 end

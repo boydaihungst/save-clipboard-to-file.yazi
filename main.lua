@@ -127,7 +127,7 @@ function M:entry(job)
 				}):align(ui.Align.LEFT),
 			})
 				:align(ui.Align.LEFT)
-				:wrap(ui.Wrap.YES),
+				:wrap(ui.Text.WRAP),
 			pos = pos,
 		})
 		if overwrite_confirmed then

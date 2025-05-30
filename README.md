@@ -23,11 +23,13 @@
 
 ## Requirements
 
-- [yazi >= 25.4.8](https://github.com/sxyazi/yazi)
+- [yazi >= 25.5.28](https://github.com/sxyazi/yazi)
 
 ## Installation
 
 ```sh
+ya pkg add boydaihungst/save-clipboard-to-file
+# or
 ya pack -a boydaihungst/save-clipboard-to-file
 ```
 
@@ -38,7 +40,7 @@ ya pack -a boydaihungst/save-clipboard-to-file
 Add this to your `keymap.toml`:
 
 ```toml
-[manager]
+[mgr]
   prepend_keymap = [
     { on = [ "p", "c" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file and hover after created" },
     #{ on = [ "p", "c" ], run = "plugin save-clipboard-to-file -- --no-hover", desc = "Paste clipboard content to file without hover after created" },

@@ -1,4 +1,4 @@
---- @since 25.4.8
+--- @since 25.5.28
 local M = {}
 local PackageName = "save-clipboard-to-file"
 
@@ -124,10 +124,10 @@ function M:entry(job)
 				ui.Line({
 					ui.Span(" "),
 					ui.Span(tostring(file_path)):style(th.confirm.list or ui.Style():fg("blue")),
-				}):align(ui.Line.LEFT),
+				}):align(ui.Align.LEFT),
 			})
-				:align(ui.Text.LEFT)
-				:wrap(ui.Text.WRAP),
+				:align(ui.Align.LEFT)
+				:wrap(ui.Wrap.YES),
 			pos = pos,
 		})
 		if overwrite_confirmed then
@@ -141,7 +141,7 @@ function M:entry(job)
 			end
 			fs.write(file_path, clipboard_content)
 			if not no_hover then
-				ya.mgr_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
+				ya.emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
 			end
 		end
 	else
@@ -150,7 +150,7 @@ function M:entry(job)
 		end
 		fs.write(file_path, clipboard_content)
 		if not no_hover then
-			ya.mgr_emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
+			ya.emit("reveal", { tostring(file_path), tab = get_current_tab_id() })
 		end
 	end
 end

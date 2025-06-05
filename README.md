@@ -23,7 +23,7 @@
 
 ## Requirements
 
-- [yazi >= 25.5.28](https://github.com/sxyazi/yazi)
+- [yazi >= 25.5.31](https://github.com/sxyazi/yazi)
 
 ## Installation
 

@@ -1,4 +1,4 @@
---- @since 25.5.28
+--- @since 25.5.31
 local M = {}
 local PackageName = "save-clipboard-to-file"
 
@@ -127,7 +127,7 @@ function M:entry(job)
 				}):align(ui.Align.LEFT),
 			})
 				:align(ui.Align.LEFT)
-				:wrap(ui.Text.WRAP),
+				:wrap(ui.Wrap.YES),
 			pos = pos,
 		})
 		if overwrite_confirmed then

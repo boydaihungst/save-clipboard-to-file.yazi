@@ -1,4 +1,5 @@
 --- @since 25.5.31
+
 local M = {}
 local PackageName = "save-clipboard-to-file"
 
@@ -65,6 +66,8 @@ local function input_file_name()
 
 	local input_value, input_event = ya.input({
 		title = "Enter file name:",
+		pos = pos,
+		-- TODO: remove this after next yazi released
 		position = pos,
 	})
 	if input_event == 1 then
@@ -117,6 +120,18 @@ function M:entry(job)
 
 		local overwrite_confirmed = ya.confirm({
 			title = ui.Line("Save clipboard to file"):style(th.confirm.title),
+			body = ui.Text({
+				ui.Line(""),
+				ui.Line("The following file is existed, overwrite?"):style(ui.Style():fg("yellow")),
+				ui.Line(""),
+				ui.Line({
+					ui.Span(" "),
+					ui.Span(tostring(file_path)):style(th.confirm.list or ui.Style():fg("blue")),
+				}):align(ui.Align.LEFT),
+			})
+				:align(ui.Align.LEFT)
+				:wrap(ui.Wrap.YES),
+			-- TODO: remove this after next yazi released
 			content = ui.Text({
 				ui.Line(""),
 				ui.Line("The following file is existed, overwrite?"):style(ui.Style():fg("yellow")),

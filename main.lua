@@ -53,7 +53,7 @@ local function pathJoin(...)
 end
 
 local get_cwd = ya.sync(function()
-	return tostring(cx.active.current.cwd)
+	return cx.active.current.cwd
 end)
 
 local get_current_tab_id = ya.sync(function()
@@ -112,7 +112,10 @@ function M:entry(job)
 	if not file_name or file_name == "" then
 		return
 	end
-	local file_path = Url(pathJoin(get_cwd(), file_name))
+	local path_separator = package.config:sub(1, 1)
+	local cwd = get_cwd()
+
+	local file_path = Url(tostring(cwd) .. path_separator .. file_name)
 	local cha, _ = fs.cha(file_path)
 	if cha then
 		local pos = get_state(STATE.OVERWRITE_CONFIRM_POSITION)

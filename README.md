@@ -29,8 +29,6 @@
 
 ```sh
 ya pkg add boydaihungst/save-clipboard-to-file
-# or
-ya pack -a boydaihungst/save-clipboard-to-file
 ```
 
 ## Usage

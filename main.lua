@@ -33,25 +33,6 @@ local function warn(s, ...)
 	ya.notify({ title = PackageName, content = string.format(s, ...), timeout = 3, level = "warn" })
 end
 
-local function pathJoin(...)
-	-- Detect OS path separator ('\' for Windows, '/' for Unix)
-	local separator = package.config:sub(1, 1)
-	local parts = { ... }
-	local filteredParts = {}
-	-- Remove empty strings or nil values
-	for _, part in ipairs(parts) do
-		if part and part ~= "" then
-			table.insert(filteredParts, part)
-		end
-	end
-	-- Join the remaining parts with the separator
-	local path = table.concat(filteredParts, separator)
-	-- Normalize any double separators (e.g., "folder//file" → "folder/file")
-	path = path:gsub(separator .. "+", separator)
-
-	return path
-end
-
 local get_cwd = ya.sync(function()
 	return cx.active.current.cwd
 end)

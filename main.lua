@@ -34,7 +34,8 @@ local function warn(s, ...)
 end
 
 local get_cwd = ya.sync(function()
-	return cx.active.current.cwd
+	local is_virtual = Url(cx.active.current.cwd).scheme and Url(cx.active.current.cwd).scheme.is_virtual
+	return is_virtual and cx.active.current.cwd or cx.active.current.cwd.path
 end)
 
 local get_current_tab_id = ya.sync(function()

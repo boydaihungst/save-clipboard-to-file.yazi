@@ -38,12 +38,15 @@ ya pkg add boydaihungst/save-clipboard-to-file
 Add this to your `keymap.toml`:
 
 ```toml
-[mgr]
-  prepend_keymap = [
-    { on = [ "p", "c" ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file and hover after created" },
-    #{ on = [ "p", "c" ], run = "plugin save-clipboard-to-file -- --no-hover", desc = "Paste clipboard content to file without hover after created" },
+[[mgr.prepend_keymap]]
+on = [ "p", "c" ]
+run  = "plugin save-clipboard-to-file"
+desc = "Paste clipboard content to file and hover after created"
 
-  ]
+#[[mgr.prepend_keymap]]
+#on = [ "p", "c" ]
+#run  = "plugin save-clipboard-to-file -- --no-hover"
+#desc = "Paste clipboard content to file without hover after created"
 ```
 
 ### Configuration (Optional)

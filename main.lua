@@ -35,7 +35,7 @@ end
 
 local get_cwd = ya.sync(function()
 	local is_virtual = Url(cx.active.current.cwd).scheme and Url(cx.active.current.cwd).scheme.is_virtual
-	return is_virtual and cx.active.current.cwd or cx.active.current.cwd.path
+	return (is_virtual and cx.active.current.cwd or cx.active.current.cwd.path) or cx.active.current.cwd
 end)
 
 local get_current_tab_id = ya.sync(function()

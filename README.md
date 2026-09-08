@@ -1,5 +1,14 @@
 # save-clipboard-to-file.yazi
 
+> [!IMPORTANT]
+> This repository is deprecated  
+> This project is no longer actively maintained,  
+> and there will be no more updates to this repository.  
+> If you've made a fork or a newer, actively maintained version of this project,  
+> feel free to share it in the Issues page.  
+> This way, newcomers can easily find an up-to-date alternative.
+> Forks, improvements, and alternative implementations are always welcome!
+
 [Yazi](https://github.com/sxyazi/yazi) plugin to paste clipboard content to file.
 
 ## Preview
@@ -23,7 +32,7 @@
 
 ## Requirements
 
-- [yazi >= 25.5.31](https://github.com/sxyazi/yazi)
+- [yazi >= 25.5.31 and <= v26.9.1](https://github.com/sxyazi/yazi)
 
 ## Installation
 
